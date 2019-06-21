@@ -1,0 +1,25 @@
+.header_texto{
+		vertical-align: bottom;
+		font-weight: bolder;
+		color: #b5b5b5;
+		text-transform: uppercase;
+		font-family: Helvetica;
+	}
+
+.lbl{
+	font-weight: bolder;
+	color: #363636;
+	text-transform: uppercase;
+}
+.active{
+	color: green;
+}
+
+.card-title{
+	padding: 10px;
+	font-size: 1.5em;
+	text-transform: uppercase;
+}
+.panel-default{
+	padding: 15px;
+}

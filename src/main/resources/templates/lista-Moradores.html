@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/stylepage.css"/>
+<meta charset="UTF-8" />
+<title>Recibo :: Condomínio</title>
+</head>
+<body>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="#"> <img src="/img/cod.png"
+			width="50" height="50" class="d-inline-block align-top"
+			alt="Edf. Jequitimar"> <span class="header_texto">Condomínio
+				Jequitimar</span>
+		</a>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" th:href="index">HOME</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" href="#">+NOVO MORADOR</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" href="#">AGENDAR REUNIÃO</a>
+		</ul>
+	
+	</nav>
+	<br>
+			<!-- Barra para Pesquisa -->
+		<div class="card panel-default">
+			<h3 class="card-title">Resultados Encontrados</h3>
+  <!-- tabela -->
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">MORADOR</th>
+				<th scope="col">STATUS</th>
+				<th scope="col">DESCRIÇÃO</th>
+				<th scope="col">AÇÃO</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="morador : ${listaMoradores}">
+				<td th:text="${morador.nomeMorador}"></td>
+				<td th:text="${morador.Descricao_pagamento}"></td>
+				<td th:text="${morador.status}"></td>
+					
+				<td><a th:href="@{/editarRecibo(id_recibo=${morador.id_recibo})}">Editar</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <a
+				th:href="@{/removerRecibo(id_recibo=${morador.id_recibo})}">Remover</a>
+			</td>
+	</table>
+		
+</div>
+</body>
+</html>

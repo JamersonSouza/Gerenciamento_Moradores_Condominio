@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/stylepage.css"/>
+<meta charset="UTF-8" />
+<title>Recibo :: Condomínio</title>
+
+	<script>
+				function msg() {
+					alert("RECIBO INSERIDO COM SUCESSO!");
+				}
+			</script>
+</head>
+<body>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="#"> <img src="/img/cod.png"
+			width="50" height="50" class="d-inline-block align-top"
+			alt="Edf. Jequitimar"> <span class="header_texto">Condomínio
+				Jequitimar</span>
+		</a>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" th:href="index">HOME</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" th:href="@{/Cadastro-Morador}">+NOVO MORADOR</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" href="#">AGENDAR REUNIÃO</a>
+		</ul>
+	
+	</nav>
+	<br>
+			<!-- Barra para Pesquisa -->
+			<div class="card panel-default">
+			<center>
+			<form action="/pesquisaMorador" method="post" id="form-morador"  th:object="${condominio_recibo}">
+			<div class="input-group col-md-10">		
+  <input type="text" th:field="*{nomeMorador}" class="form-control col-md-10" placeholder="Encontre um Morador...">
+  <div class="input-group-append">
+    <button class="btn btn-outline-success" type="submit" id="button-addon2">PESQUISAR</button>
+  </div>
+  </div>
+  </form>
+  </center>
+		<br>
+	<form class="form-horizontal" method="POST" th:action="@{/addRecibo}"
+		th:object="${condominio_recibo}">
+		<div class="card panel-default">
+			<div class="card-heading">
+				<h3 class="card-title">Recebimentos - Condomínio</h3>
+				<hr>
+			</div>
+		
+		<br>
+		<div class="container">
+			<br>
+			<!-- DESCRIÇÃO -->
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="inputNome" class="lbl">MORADOR:</label>
+					<select id="inputNome" th:field="*{cadastromorador}" class="form-control">
+							<option th:each="list : ${listaMorador}" 
+							th:text="${list.nome}" th:value="${list.idMorador}"></option>
+					</select>
+					<span class="error" th:if="${#fields.hasErrors('cadastromorador')}"
+												th:errors="*{cadastromorador}"></span>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputDescricao" class="lbl">DESCRIÇÃO:</label> <input
+						type="text" th:field="*{Descricao_pagamento}"
+						placeholder="Exemple: Pagamento do Condominio"
+						class="form-control"
+						id="inputDescricao">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputData" class="lbl">DATA DE VENCIMENTO:</label> <input
+						type="date" th:field="*{dataVencimento}" 
+						class="form-control" id="inputData">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputValor" class="lbl">VALOR A PAGAR:</label> <input
+						type="text" th:field="*{valorPagamento}"
+						placeholder="Exemple: R$ 100,00" class="form-control"
+						id="inputValor">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputStatus" class="lbl">STATUS:</label> <select
+						class="form-control" th:field="*{status}">
+						<option value="RECEBIDO">RECEBIDO</option>
+						<option value="PENDENTE">PENDENTE</option>
+						<option value="CANCELADO">CANCELADO</option>
+					</select>
+				</div>
+			</div>
+			<br>
+			<center>
+				<button type="submit" onclick=msg();
+					class="btn btn-outline-success col-md-3">ENVIAR!</button>
+			</center>
+		</div>
+	</form>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="card panel-default">
+		<div class="card-heading">
+			<h3 class="card-title">ÚLTIMOS RECEBIMENTOS</h3>
+		</div>
+	
+	<!-- tabela -->
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">MORADOR</th>
+				<th scope="col">STATUS</th>
+				<th scope="col">VALOR</th>
+				<th scope="col">AÇÃO</th>
+			</tr>
+		</thead>
+		<tr th:each="list : ${lista}">
+			<td th:text="${list.nomeMorador}"></td>
+			<td th:text="${list.status}"></td>
+			<td th:text="|R$ ${list.valorPagamento} |"></td>
+			<td><a th:href="@{/editarRecibo(id_recibo=${list.id_recibo})}">Editar</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <a
+				th:href="@{/removerRecibo(id_recibo=${list.id_recibo})}">Remover</a>
+			</td>
+	</table>
+</div>
+</body>
+</html>

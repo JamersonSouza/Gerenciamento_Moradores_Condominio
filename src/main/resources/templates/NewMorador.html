@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/css/stylepage.css"/>
+<meta charset="UTF-8" />
+<title>Cadastrar Morador :: Condomínio</title>
+
+	<script>
+				function msg2() {
+					alert("MORADOR INSERIDO COM SUCESSO!");
+				}
+			</script>
+</head>
+<script type="text/javascript" src="js/telefone.js"></script>
+
+<body>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="#"> <img src="/img/cod.png"
+			width="50" height="50" class="d-inline-block align-top"
+			alt="Edf. Jequitimar"> <span class="header_texto">Condomínio
+				Jequitimar</span>
+		</a>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" th:href="index">HOME</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link disabled" href="#">+NOVO MORADOR</a>
+		</ul>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"></li>
+			<a class="nav-link active" href="#">AGENDAR REUNIÃO</a>
+		</ul>
+	</nav>
+	<br>
+	<div class="card panel-default">
+			<div class="container">	
+	<form th:action="@{/insertMorador}" method="post" th:object="${cadastromorador}">
+	
+<div id="alerta" class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}"> 
+	<strong>Morador Inserido Com Sucesso!</strong>
+	</div>
+	<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+	<div th:each="detailedError : ${#fields.detailedErrors()}">
+		<span th:text="${detailedError.message}"></span>
+		</div>
+	</div>
+	
+  <div class="form-row">
+  					<!-- INPUT Nome -->
+    <div class="form-group col-md-6">
+      <label class="lbl" for="inputNomeMorador">Nome do Morador:</label>
+      <input type="text" th:field="*{nome}" class="form-control" id="inputNomeMorador" placeholder="Exemple: William Santos Fernandes">
+    </div>
+    			<!-- Input Contato -->
+    <div class="form-group col-md-6">
+      <label class="lbl" for="inputNumber">Contato:</label>
+      <input type="text" th:field="*{telefone}" onkeyup="mascara(this,mtel);" class="form-control" id="inputNumber" placeholder="Insira o telefone">
+    </div>
+    			<!-- Input Placa Carro -->
+     <div class="form-group col-md-4">
+      <label class="lbl" for="inputPlaca">Placa do Veículo:</label>
+      <input type="text" th:field="*{placaCarro}"class="form-control" id="inputPlaca" placeholder="Exemple: GTA-0101">
+    </div>
+    
+    			<!-- Input Valor Condominio -->
+    <div class="form-group col-md-4">
+      <label class="lbl" for="inputPgto">Valor Pagamento:</label>
+      <input type="text" th:field="*{valorCondominio}" class="form-control" id="inputPgto" placeholder="Exemple: R$ 149,99">
+    </div>
+    
+    			<!-- Input Numero Apartamento -->
+		<div class="form-group col-md-4">
+    	  		<label class="lbl" for="inputNumberApt">Numero do Apartamento:</label>
+      		<input type="text" th:field="*{numApt}" class="form-control" id="inputNumberApt" placeholder="Exemple: apt 101">
+    	</div>
+    	
+    			<!-- Input DataVencimento -->
+    	
+    	<div class="form-group col-md-3">
+    	  		<label class="lbl" for="inputDate">Data de Vencimento:</label>
+      		<input type="date" th:field="*{dataVencimentoRecibo}" class="form-control" id="inputDate">
+    	</div>
+    	
+    			<!-- Input Forma de Pagamento -->
+    			
+    	<div class="form-group col-md-4">
+    		<label for="inputFormPgto" class="lbl">FORMA DE PAGAMENTO:</label>
+    			<select th:field="*{formaPagamento}" class="form-control">
+    					<option value="Cartao">Cartão</option>
+    					<option value="Cheque">Cheque</option>
+    					<option value="Dinheiro">Dinheiro</option>
+    			</select>
+    		</div>
+    				
+    				<!-- Input Morador Ou Proprietario -->
+    					<div class="form-group col-md-5">
+    		<label for="inputFormPgto" class="lbl">TIPO DE MORADOR:</label>
+    			<select th:field="*{moradorOuProprietario}" class="form-control">
+    					<option value="Inquilino">Inquilino</option>
+    					<option value="Proprietario">Proprietário</option>
+    			</select>
+    		</div>
+    		
+    			<!-- Botão Salvar -->
+    			<div class="col-sm-2 offset-sm-5 col-sm-10">
+    			<br><br>
+    	<button type="submit" onclick=msg2(); class="btn btn-outline-success">INSERIR MORADOR</button>
+    			</div>
+    			</div>
+    	</form>
+					</div>
+					</div>
+</body>
+</html>
